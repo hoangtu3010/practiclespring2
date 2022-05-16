@@ -2,7 +2,7 @@ package aptech.t2008m.practiclespring2.specifications;
 
 import aptech.t2008m.practiclespring2.entity.SearchCriteria;
 import aptech.t2008m.practiclespring2.entity.Street;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.*;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -10,9 +10,12 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class StreetSpecifications implements Specification<Street>{
-
-    @Autowired
     private SearchCriteria criteria;
 
     @Override
