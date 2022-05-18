@@ -20,16 +20,16 @@ public class StreetService {
     }
 
     public List<Street> findAll(String keyword, Integer districtId) {
-        StreetSpecifications spec1 = new StreetSpecifications(new SearchCriteria("name", ":", keyword));
-        StreetSpecifications spec2 = new StreetSpecifications(new SearchCriteria("districtId", ":", districtId));
-        if (keyword.equals("") && districtId == 0) {
-            return streetRepository.findAll();
-        } else if (districtId == 0) {
-            return streetRepository.findAll(Specification.where(spec1));
-        } else if (keyword.equals("")) {
-            return streetRepository.findAll(Specification.where(spec2));
+        Specification<Street> specifications = Specification.where(null);
+
+        if (keyword != null && keyword.length() > 0) {
+            specifications = new StreetSpecifications(new SearchCriteria("name", ":", keyword));
         }
-        return streetRepository.findAll(Specification.where(spec1).and(spec2));
+        if (districtId > 0) {
+            specifications = new StreetSpecifications(new SearchCriteria("districtId", ":", districtId));
+        }
+
+        return streetRepository.findAll(specifications);
     }
 
     public Optional<Street> findById(Integer id) {
